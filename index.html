@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Noliktavas Navigācija</title>
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+
+</head>
+<body>
+	<div id="main-container">
+
+		<div id="pick-item-data">
+
+			<div class="pick-item-info" id="pick-item-title">
+
+			</div>
+			<div class="pick-item-info" id="pick-item-block">
+
+			</div>
+			<div class="pick-item-info" id="pick-item-position">
+
+			</div>
+			<div class="pick-item-info" id="pick-item-name">
+
+			</div>
+			<div class="pick-item-info" id="pick-item-sku">
+
+			</div>
+			<div class="pick-item-info" id="pick-item-amount">
+	
+			</div>
+		</div>
+		<div id="center">
+			<div id="warehouse-map">
+				<div id="top-pick-list-toggle" class="trans-delay" onclick="togglePickOrderListMap(this)">
+					<div id="open-pick-list"></div>
+				</div>
+				<div id="warehouse-map-container">
+					<canvas id="warehouse-map-canvas">
+					</canvas>
+				</div>
+			</div>
+			<div id="pick-list-container" class="hidden-container">
+				<div id="pick-list-sub-container" class="hidden">
+					<div id="pick-list">
+					</div>
+				</div>
+				<div id="bottom-pick-list-toggle" class="hidden" onclick="togglePickOrderListMap(this)">
+					<div id="close-pick-list"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="menu">
+			<div id="menu-set-location-text">
+			</div>
+			<div id="menu-actions">
+				<button class="menu-button">
+					BT
+				</button>
+				<button class="menu-button">
+					BT
+				</button>
+				<button class="menu-button">
+					BT
+				</button>
+				<button class="menu-button">
+					BT
+				</button>
+				<button class="menu-button">
+					BT
+				</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+<script src="js/globalUIControl.js"></script>
+
+<script type="text/javascript" src="js/modules/warehouseModel.js"></script>
+<script type="text/javascript" src="js/modules/RouteCalculate.js"></script>
+<script type="text/javascript" src="js/modules/RouteDisplay.js"></script>
+<script type="text/javascript" src="js/wmsImitation/pickListGenerator.js"></script>
+
+<script src="js/globalSystemInit.js"></script>
+
+<script>
+	// Init.
+
+	setPickList(true);
+	routeCal.nearestNeighbor();
+	showWarehouse();
+	showAStarRoute();
+
+</script>

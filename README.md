@@ -1,1 +1,1 @@
-### Prototipa demonstrācija
+### Prototipa darbības demonstrācijas timekļa lapa

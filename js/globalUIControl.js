@@ -41,7 +41,8 @@ function togglePickOrderListMap(){
 		toggler1 = document.getElementById("bottom-pick-list-toggle"),
 		toggler2 = document.getElementById("top-pick-list-toggle"),
 		wMapC = document.getElementById("warehouse-map"),
-		pListC = document.getElementById("pick-list-container");
+		pListC = document.getElementById("pick-list-container"),
+		zoomBtn = document.getElementById("zoom-in");
 
 
 	// pList.classList.toggle("hidden-container");
@@ -51,5 +52,26 @@ function togglePickOrderListMap(){
 	toggler2.classList.toggle("hidden");
 	wMap.classList.toggle("hidden");
 	pList.classList.toggle("hidden");
+	zoomBtn.classList.toggle("hidden");
+	
+}
+
+function zoomIn(){
+
+	let map = document.getElementById("warehouse-map-canvas"),
+		mapZoom = window.getComputedStyle(map)
+					.getPropertyValue('zoom')*100;
+
+	map.style.zoom = (mapZoom+10)+"%";
+
+}
+
+function zoomOut(){
+
+	let map = document.getElementById("warehouse-map-canvas"),
+		mapZoom = window.getComputedStyle(map)
+					.getPropertyValue('zoom')*100;
+
+	map.style.zoom = (mapZoom-10)+"%";
 	
 }

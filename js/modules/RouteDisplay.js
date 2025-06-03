@@ -12,24 +12,28 @@ class RouteDisplay {
 		this._routeCalc = null;
 
 		// Warehouse
-		this.rackStroke = "#525252";
-		this.rackFill = "#888";
-		this.aisleFill = "#eee";
-		this.depotFill = "cyan";
-		this.depotRadiusFrac = 0.5;
-		this.depotFont = "700 18px Arial";
-		this.pickEntryRadiusFrac = 0.3;
+			this.rackStroke = "#525252";
+			this.rackFill = "#888";
+			this.aisleFill = "#eee";
+			this.depotFill = "cyan";
+			this.depotRadiusFrac = 0.5;
+			this.depotFont = "700 18px Arial";
+			this.rackBlockSignsFont = "700 14px Arial";
+			this.pickEntryRadiusFrac = 0.3;
+			this.rackBlockSigns = "#eee";
+			this.blockSigns = true;
+			this.rackSigns = true;
 		// Picks
-		this.pickFill = "#525252";
-		this.pickStroke = "#ff9800";
-		this.pickLineWidth = 3;
+			this.pickFill = "#525252";
+			this.pickStroke = "#ff9800";
+			this.pickLineWidth = 3;
 		// TSP path
-		this.tspLineColor = "blue";
-		this.tspLineWidth = 2;
-		this.tspFont = "700 18px Arial";
+			this.tspLineColor = "blue";
+			this.tspLineWidth = 2;
+			this.tspFont = "700 18px Arial";
 		// A* path
-		this.astarLineColor = ["blue", "blue"];
-		this.astarLineWidth = 6;
+			this.astarLineColor = ["blue", "blue"];
+			this.astarLineWidth = 6;
 	}
 
 	set canvasID(val) { this._canvasID = val; }
@@ -84,6 +88,7 @@ class RouteDisplay {
 						this._cellSize - this._cellSize / 10,
 						this._cellSize - this._cellSize / 10
 					);
+
 				} else {
 					this._ctx.fillStyle = this.aisleFill;
 					this._ctx.fillRect(
@@ -95,6 +100,48 @@ class RouteDisplay {
 				}
 			}
 		}
+
+	}
+
+	#addBlockSigns(){
+
+		let posOfset = this._warehouse._alignment === 1 ? 
+			this._warehouse._crossAisleW : 
+			this._warehouse._aisleW;
+		
+		this._ctx.fillStyle = this.rackBlockSigns;
+		this._ctx.font = this.rackBlockSignsFont;
+
+		this._warehouse._blockArr
+		.forEach(b => {
+			this._ctx.fillText(
+				"BLOCK "+ b.block,
+				b.x * this._cellSize,
+				b.y * this._cellSize - this._cellSize*posOfset/2
+			);
+
+		});
+
+	}
+
+	#addRackSigns(){
+		let posOfset = this._warehouse._alignment === 1 ? 
+			this._warehouse._crossAisleW : 
+			this._warehouse._aisleW;
+
+		this._ctx.fillStyle = this.rackBlockSigns;
+		this._ctx.font = this.rackBlockSignsFont;
+
+		this._warehouse._rackArr
+		.forEach(r => {
+			this._ctx.fillText(
+				"RACK "+ r.rack,
+				r.x * this._cellSize,
+				r.y * this._cellSize - this._cellSize*posOfset/6
+			);
+
+		});
+
 	}
 
 	#highLightPickLocations(route){
@@ -263,5 +310,7 @@ class RouteDisplay {
 	drawWarehouse(){
 		this.#clearCanvas();
 		this.#drawBaseWarehouse();
+		if(this.blockSigns) this.#addBlockSigns();
+		if(this.rackSigns) this.#addRackSigns();
 	}
 }

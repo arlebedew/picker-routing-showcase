@@ -9,12 +9,12 @@
 const warehouse = new WarehouseModel();
 
 	// Set warehouse parameters (racks, aisles, etc.)
-	warehouse.alignment = 1; // layout orientation mode
+	warehouse.alignment = 2; // layout orientation mode
 	warehouse.rackW = 2; // rack width (cells)
-	warehouse.rackL = 15; // rack length (cells)
-	warehouse.blockAmnt = 10; // number of blocks (sections of racks)
-	warehouse.rackAmntPerBlock = 15; // racks per block
-	warehouse.crossAisleW = 4; // width of cross-aisles (in cells)
+	warehouse.rackL = 10; // rack length (cells)
+	warehouse.blockAmnt = 14; // number of blocks (sections of racks)
+	warehouse.rackAmntPerBlock = 14; // racks per block
+	warehouse.crossAisleW = 2; // width of cross-aisles (in cells)
 	warehouse.aisleW = 2; // width of aisles between rack rows (in cells)
 	warehouse.depoWidth = 3;
 	warehouse.depoPos = 'top';
@@ -22,8 +22,8 @@ const warehouse = new WarehouseModel();
 
 // Change to MockWMS
 const pickListGen = new PickListGenerator();
-	pickListGen.minListSize = warehouse.storageArr.length * 0.005;
-	pickListGen.maxListSize = warehouse.storageArr.length * 0.008;
+	pickListGen.minListSize = warehouse.storageArr.length * 0.01;
+	pickListGen.maxListSize = warehouse.storageArr.length * 0.04;
 	pickListGen.warehouse = warehouse;
 
 
@@ -51,6 +51,7 @@ const routeDis = new RouteDisplay();
 	routeDis.depotFill = "#525252";
 	routeDis.pickFill = "#525252";
 	routeDis.pickStroke = "#3e53b3";
+	routeDis.rackBlockSigns = "#525252";
 	routeDis.rackStroke = "#525252";
 	routeDis.pickLineWidth = 5;
 	routeDis.tspLineColor = "#65b8eb";

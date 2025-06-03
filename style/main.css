@@ -112,11 +112,35 @@ body {
 	}
 
 	#warehouse-map-canvas {
-		zoom: 150%;
+		zoom: 190%;
 		display: block;
 		margin: auto;
 		border:none;
 	}
+
+	.zoom-btn{
+		position: fixed;
+		text-align: center;
+		width: 3rem;
+		font-size: xxx-large;
+		color: var(--bg-color);
+		background: var(--button-color);
+		cursor: pointer;
+		line-height: 3rem;
+		border: none;
+		opacity: 70%;
+		left: 8%;
+
+	}
+
+	#zoom-in{
+		top: calc(90vh - 15vh);
+	}
+
+	#zoom-out{
+		top: calc(90vh - 10vh);
+	}
+
 
 	#pick-list-container {
 		display: grid;
@@ -226,6 +250,10 @@ body {
 	#pick-item-data {
 		grid-template-columns: 5% 45% 45% 5%;
 		grid-template-rows: 0.2fr repeat(4, 1fr) 0.2fr;
+	}
+
+	.zoom-btn{
+		left: 5%;
 	}
 
 }	

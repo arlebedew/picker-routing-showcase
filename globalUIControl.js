@@ -21,12 +21,7 @@ function showAStarRoute() {
 
 function setPickList(mode){
 	if(mode) pickListGen.generatePickList();
-	if(!mode) pickListGen.pickList = [
-		{x: 3, y: 4},
-		{x: 3, y: 7},
-		{x: 6, y: 7},
-		{x: 2, y: 14}
-	];
+	if(!mode) console.log("Using manual pick list.");
 	if(mode===undefined) console.warn("Why no Pick list mode??");	
 }
 
@@ -68,12 +63,25 @@ function zoomIn(){
 
 }
 
-function zoomOut(){
+function zoomOut(amount){
 
 	let map = document.getElementById("warehouse-map-canvas"),
 		mapZoom = window.getComputedStyle(map)
 					.getPropertyValue('zoom')*100;
 
-	map.style.zoom = (mapZoom-10)+"%";
+	amount = Number.isInteger(amount) ? amount : 10;
+
+	map.style.zoom = (mapZoom-amount)+"%";
+	
+}
+
+function zoomPerContent(){
+
+	let map = document.getElementById("warehouse-map-canvas"),
+		mapSize = map.width;
+
+	if(mapSize >= 1500){
+		map.style.zoom = 120+"%";
+	}
 	
 }

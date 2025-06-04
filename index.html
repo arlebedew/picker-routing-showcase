@@ -40,7 +40,7 @@
 					<canvas id="warehouse-map-canvas">
 					</canvas>
 					<button class="zoom-btn" id="zoom-in" onclick="zoomIn()">+</button>
-					<button class="zoom-btn" id="zoom-out" onclick="zoomOut(15)">-</button>
+					<button class="zoom-btn" id="zoom-out" onclick="zoomOut()">-</button>
 				</div>
 			</div>
 			<div id="pick-list-container" class="hidden-container">
@@ -87,26 +87,13 @@
 <script type="text/javascript" src="js/wmsImitation/pickListGenerator.js"></script>
 
 <script src="js/globalSystemInit.js"></script>
-<!--  
-	TO FUTURE MYSELF
-	Use file below for testing how calcualtion works.
-	If you do, comment out that default globalSystemInit.js.
-
-	It has pre-set warehouse and coresponding pick-list.
-	Set setPickList(false);
-
-	Good luck.
--->
-<!-- <script src="js/Testing/globalSystemInit_T.js"></script>  -->
 
 <script>
 	// Init.
 
 	setPickList(true);
-	routeCal.calculateOrder();
+	routeCal.nearestNeighbor();
 	showWarehouse();
 	showAStarRoute();
-	zoomPerContent();
 
 </script>
-

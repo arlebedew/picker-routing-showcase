@@ -18,11 +18,15 @@ class RouteDisplay {
 			this.depotFill = "cyan";
 			this.depotRadiusFrac = 0.5;
 			this.depotFont = "700 18px Arial";
-			this.rackBlockSignsFont = "700 14px Arial";
+			this.rackBlockSignsFont = "700 12px Arial";
+			this.cellTextSize = "700 10px Arial";
 			this.pickEntryRadiusFrac = 0.3;
 			this.rackBlockSigns = "#eee";
+			this.cellTextColor = "#eee";
+			this.pickOrderNumberTextColor= "cyan";
 			this.blockSigns = true;
 			this.rackSigns = true;
+			this.cellSigns = true;
 		// Picks
 			this.pickFill = "#525252";
 			this.pickStroke = "#ff9800";
@@ -30,7 +34,7 @@ class RouteDisplay {
 		// TSP path
 			this.tspLineColor = "blue";
 			this.tspLineWidth = 2;
-			this.tspFont = "700 18px Arial";
+			this.tspFont = "700 14px Arial";
 		// A* path
 			this.astarLineColor = ["blue", "blue"];
 			this.astarLineWidth = 6;
@@ -100,7 +104,6 @@ class RouteDisplay {
 				}
 			}
 		}
-
 	}
 
 	#addBlockSigns(){
@@ -121,7 +124,6 @@ class RouteDisplay {
 			);
 
 		});
-
 	}
 
 	#addRackSigns(){
@@ -141,7 +143,6 @@ class RouteDisplay {
 			);
 
 		});
-
 	}
 
 	#highLightPickLocations(route){
@@ -206,7 +207,7 @@ class RouteDisplay {
 
 	#drawPickOrderNumbers(route) {
 
-		this._ctx.fillStyle = this.aisleFill;
+		this._ctx.fillStyle = this.pickOrderNumberTextColor;
 		this._ctx.font = this.tspFont;
 
 		for (let i = 1; i < route.length; i++) {
@@ -215,6 +216,23 @@ class RouteDisplay {
 				i.toString(),
 				route[i].x * this._cellSize + this._cellSize / 13,
 				route[i].y * this._cellSize + this._cellSize / 1.3
+			);
+		}
+	}
+
+	#drawCellNumbers() {
+
+		this._ctx.fillStyle = this.cellTextColor;
+		this._ctx.font = this.cellTextSize;
+
+		for (let p = 0; p < this._warehouse.storageArr.length; p++) {
+
+			let cell = this._warehouse.storageArr[p];
+
+			this._ctx.fillText(
+				cell.actualPosition,
+				cell.x * this._cellSize + this._cellSize / 8,
+				cell.y * this._cellSize + this._cellSize / 1.5
 			);
 		}
 	}
@@ -312,5 +330,6 @@ class RouteDisplay {
 		this.#drawBaseWarehouse();
 		if(this.blockSigns) this.#addBlockSigns();
 		if(this.rackSigns) this.#addRackSigns();
+		if(this.cellSigns)this.#drawCellNumbers();
 	}
 }

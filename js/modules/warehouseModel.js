@@ -106,7 +106,8 @@ class WarehouseModel {
 					this._crossAisleW,
 					this._rackW,
 					this._rackL,
-					this._blockAmnt);
+					this._blockAmnt
+					);
 				space = spaceBetween(this._aisleW, block[0].length);
 
 				this._structArr.push(...space);
@@ -233,22 +234,24 @@ class WarehouseModel {
 			lCnt = 1,
 			positionCnt = 0,
 			wCnt = 1,
-			fullWidth = 0;
+			fullWidth = 0,
+			blockOrRack =0;
 
 		if (this._alignment === 1) {
 			width = this._rackW;
 			length = this._rackL;
+			blockOrRack = this._rackAmntPerBlock;
 
 		} else if (this._alignment === 2) {
 			width = this._rackL;
 			length = this._rackW;
-
+			blockOrRack = this._blockAmnt;
 		} else {
 			console.warn("Unset alignment");
 			return;
 		}
 
-		fullWidth = width * this._rackAmntPerBlock;
+		fullWidth = width * blockOrRack;
 
 		for (let y = 0; y < rows; y++) {
 
@@ -269,7 +272,9 @@ class WarehouseModel {
 				let onEdge = 0,
 					side = 0,
 					block = 0,
-					rack = 0;
+					rack = 0,
+					rackOrBlock = 0,
+					actualPosition =0;
 
 				// Rack/Block nr. calculation
 					if (this._alignment === 1) {
@@ -287,6 +292,8 @@ class WarehouseModel {
 								if(positionCnt === fullWidth) this._blockArr.push({ x, y, block, rack });
 							}
 
+						rackOrBlock = rack;
+
 					} else if (this._alignment === 2) {
 						rack = Math.floor(y / (length + this._aisleW))+1;
 						block = Math.floor(x / (width + this._crossAisleW))+1;
@@ -299,42 +306,48 @@ class WarehouseModel {
 								// Block start detection
 								if(lCnt===1) this._blockArr.push({ x, y, block, rack });
 							}
+
+						rackOrBlock = block;
 					}
 
 				// Find rack edges
 					if (wCnt === 1) {
 						side = lCnt % 2 > 0 ? 1 : 2;
 						onEdge = [true, side];
+						actualPosition = wCnt;
 						wCnt++;
 					} else if (wCnt === width) {
 						side = lCnt % 2 > 0 ? 1 : 2;
 						onEdge = [true, side];
+						actualPosition = wCnt;
 						wCnt = 1; 
 
 					} else {
 						side = lCnt % 2 > 0 ? 1 : 2;
 						onEdge = [false, side];
+						actualPosition = wCnt;
 						wCnt++;
 					}
 
 					if (this._alignment === 1) {
 						if (lCnt === 1 || lCnt === length) {
-
 							side = positionCnt % 2 > 0 ? 2 : 1;
+							actualPosition = lCnt;
 							onEdge = [true, side];
 						} else {
 
 							side = positionCnt % 2 > 0 ? 2 : 1;
+							actualPosition = lCnt;
 							onEdge = [false, side];
 						}
 					}
-
-				this._storageArr.push({ x, y, onEdge, block, rack });
+				
+				this._storageArr.push({ x, y, onEdge, block, rack, actualPosition});
 
 				positionCnt--;
 			}
 
-			if (positionCnt === 0) {
+			if (positionCnt === 0){
 				if (this._alignment === 1) {
 					if (lCnt === length) {
 						lCnt = 1;
